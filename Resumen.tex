@@ -25,7 +25,7 @@ Pueden distinguirse las siguientes clases de sistema:
 \end{itemize}
 
 \subsection{Proposito de una simulacion}
-El proposito de hacer una simulacion es obtener un mejor entindimiento e
+El proposito de hacer una simulacion es obtener un mejor entendimiento e
 identificar posibles mejoras para un sistema, esta informacion luego puede
 ser utilizada para tomar mejores decisiones sobre el sistema real.
 
@@ -64,6 +64,137 @@ al llevar a cabo acciones.
 Es por estas caracteristicas de los sistemas operacionales que puede ser
 util emplear simulaciones, ya que estas tienen la capacidad de representar
 la variabilidad, interconexion y complejidad.
+
+%TODO
+Notas Modelos de simulacion de sistemas discretos y continuos: ocnceptos y metodologias.
+Modelo de diseño:
+depende de la plataforma y del paradigma elegidos para la simulacion
+
+Simulacion basada en eventos discretos:
+el sistema se representa como entidades que fluyen entre actividades, con un itempo entre 
+cada una.
+el modelo evoluciona en el tiempo y las variables de estado cambian instantaneamente en 
+puntos separados de tiempo.
+en un sistema continuo las vars de estado cambian en cada par de puntos, en discretos solo en
+determinados puntos, en ambos casos el cambio es instantaneo.
+Evento: ocurrencia que sucede dentro del alcance del sistema, instantanea, que puede 
+cambiar el estado del sistema
+
+Instantaneo: se ordena el cambio de una variable y ese cambio se puede observar en el sistema
+sin el paso del tiempo de por medio.
+
+Proceso: secuencia de eventos ordenada por el paso del tiempo. Siempre se definen para una
+misma entidad
+Actividad: conjunto de operaciones que cambian el estado de una entidad. No pueden ser 
+interrumpidas una vez que una entidad las inicia
+
+Los estados de las entidades permanecen constantes entre eventos
+
+Mecanismos de avance de tiempo:
+Soluciones a computar el paso del tiempo. Orientado a intervalo o a evento
+
+A intervalo: se divide el tiempo en intervalos regulares y al final de cada uno se evalua
+si un evento ocurrio en su transcurso. Si ocurrio se ejecuta el evento. Usado para
+simulaciones continuas
+
+A evento: el tiempo de simulacion se avanza hasta alcanzar el proximo evento. Este es el 
+evento mas inminente. Usado para simulaciones discretas
+
+Una de las categorias de los mecanismos orientados a eventos es la programacion de eventos:
+
+Componentes y organizacion:
+estado del sistema
+reloj de simulacion
+lista de eventos
+contadores estadisticos
+rutina de inicializacion
+rutina de tienmpo
+etc
+
+Estado: coleccion de variables de estados necesarias para describir al sistema en un instante
+
+Reloj de sim:
+variable que mantiene el valor actual de tiempo simulado.
+
+Lista de eventos:
+contiene el proximo tiempo en el cual ocurrira cada posible tipo de evento del sistema
+
+Contadores est:
+variables ocn la informacion estadistica relacionada al comportamiento del sistema
+
+R de inicializacion
+inicializa el modelo en tiempo cero: en su estado inicial. Asigna los valores iniciales de
+estado y a los contadores est.
+
+R de tiempo:
+vincula lista de eventos con el reloj de sim. Determina el evento mas inminente y actualiza
+el reloj con el timpo correspondiente a ese evento
+
+Rutina de evento:
+actualiza el estado cuando ocurre determinado evento. Debe haber una por cada tipo de evento
+
+Lib de rutinas:
+rutinas que generan observaciones aleatorias usando las distribuciones de probabilidad 
+asociadas al modelo
+
+Generador de reportes:
+calcula estimaciones de medidas de performance usando los contadores estadisticos. se usa
+al finalizar la simulacion
+
+Prog principal:
+Invoca a las demas rutinas: rutina de tiempo -> r de evento \ldots -> generador de reportes
+
+Requieren una organizacion:
+Existen relaciones entre los componentes basadas en flujos de control
+
+El reloj de sim, contadores est, lista de eventos, <falta uno> son alcanzables por todos los 
+componentes 
+
+Entidad:
+Objeto de interes caracterizado por los valores de sus atributos. Estos atributos son las
+propiedades que permiten describir su estado como parte del sistema. Son las propiedades
+que interesan medir de la entidad segun los objetivos del modelo.
+El estado de una entidad son los valores de sus atributos en un determinado instante.
+
+Los estados de las entidades mas importantes de un sistema definen el estado de este.
+
+Ejercicio: modelo de diseño
+Segun el modelo conceptual, cada componente 'incluido' sera una entidad
+Por cada entidad se definen atributos, actividades y eventos. Debe haber un evento de inicio
+y uno de fin
+Debe usarse el 'nivel de detalle' para definir las propiedades
+Las propiedades pueden ser marcas temporales, ej: atributo-inicio = t=3
+
+Lineamiento:
+prop de conjunto en modelo conceptual -> se usa para determinar propiedades individuales
+ej: tiempo entre arribos -> marca de tiempo en que arribo
+
+por cada actividad se define un evento de inicio y de fin
+Entre actividades no ocurren eventos
+
+El evento de inicio de una actividad siempre es el de inicio de otra
+
+Una actividad puede tener tiempo 0
+
+Luego se construyen las rutinas de evento
+Solo se construyen para eventos incondicionales
+
+Evento condicional:
+Dependen del estado de otra entidad para ejecutarse
+
+Evento incondicional:
+Ocurrencia aleatoria
+
+Programacion de eventos:
+Se hace una descripcion completa de los cambios de estado debidos a eventos incondicional
+
+Los eventos condicionales de forma indirecta se programan dentro de las rutinas de los 
+eventos incondicionales
+
+Tambien se identifican eventos equivalentes, esto es, mismo evento en distintas entidades
+(mismo comportamiento en el sistema)
+
+
 \end{document}
 
 
