@@ -149,14 +149,31 @@ inspecciona para determinar a que distribucion se parece, ademas se deben consid
 del proceso.
 
 Los parametros se calculan en base a los datos del histograma.
-La bondad de ajuste puede probarse graficamente, por ejemplo construyendo un histograma basado en la
+La \textbf{bondad de ajuste} puede probarse graficamente, por ejemplo construyendo un histograma basado en la
 distribucion propuesta y comparandolo al original o haciendo una comparacion quantil-quantil entre ambos
 conjuntos de datos.
 
 Por otro lado, puede hacerse la prueba por metodos analiticos como chi-cuadrado, Kolmogorov-Smirnov o Anderson-Darling.
 
-\section{Generacion de numeros aleatorios}
-Los numeros aleatorios deben ser...
+\section{Generacion de numeros aleatorios} % Resumir hasta 287
+Los numeros aleatorios deben ser uniformes e independientes. Deben ser muestras independientes una
+de la otra de una distribucion uniforme entre 0 y 1.
+Estas dos caracteristicas se pueden probar, la uniformidad mediante pruebas de bondad que comparen una muestra o
+secuencia con una distribucion uniforme y la independencia comparando la correlacion entre valores de la muestra y 
+la correlacion esperada que es 0.
+
+\subsection*{Metodos de generacion de numeros pseudo-aleatorios}
+Los metodos de generacion de numeros aleatorios deben poseer las siguientes caracteristicas:
+\begin{itemize}
+    \item El metodo debe ser rapido
+    \item Portable a diferentes plataformas
+    \item Debe tener un ciclo largo, haciendo referencia a la cantidad de numeros generados antes de repetir una 
+    secuencia
+    \item Debe aproximar las caracteristicas de los numeros aleatorios, incluyendo parametros como la varianza
+\end{itemize}
+
+\subsubsection*{Congruencia lineal}
+Permite determinar el ciclo maximo y la velocidad de generacion al elegir los valores de a, c y m.
 \end{document}
 
 
