@@ -222,7 +222,7 @@ Este es el caso de la distribucion normal. % Agregar mas sobre este metodo parti
 
 \section*{Diseño de experimentos}
 Se plantean interrogantes y se diseñan experimentos para determinar que pruebas es necesario hacer y como llevarlas a cabo para responder
-a los interrogantes.
+a los interrogantes empleando la menor cantidad de recursos y tiempo posibles.
 
 \subsection*{Experimento}
 Es un cambio que se hace sobre las condiciones o las entradas de un sistema o proceso con el fin de medir el efecto del cambio sobre 
@@ -252,7 +252,83 @@ que no fueron tenidos en cuenta por considerarse de poca importancia.
 Es el error que comete el experimentador al llevar a cabo los experimentos, si es importante el error no se podra
 determinar el efecto de los factores en el sistema.
 
+\subsection*{Diseño}
+Es el numero de experimentos, sus tratamientos y la cantidad de repeticiones por cada uno.
+
+\subsection*{Interacciones}
+Dependiendo del diseño de experimento que se emplee, pueden existir interacciones entre los factores que tengan 
+un efecto sobre las variables de respuesta ademas de los efectos individuales de los factores.
+
 \subsection*{Planeacion}
+En primer lugar se define el objeto de estudio, un problema si lo hay y se hace una investigacion preliminar para
+conocer el dominio.
+Luego se eligen las variables de respuesta que mejor caractericen al problema y que se puedan medir de forma
+precisa y consistente.
+Se determinan los factores y sus niveles
+
+\subsection*{Analisis}
+Ya que los experimentos se hacen sobre muestras y no la poblacion, debe hacerse un analisis estadistico para
+determinar si los efectos de los factores son lo suficientemente grandes para garantizar que tambien se dan los 
+efectos en la poblacion. Para esto se emplean los ANOVAs.
+
+\subsection*{Interpretacion}
+Se contrastan las conjeturas o conocimientos preliminares sobre el problema con los resultados de los experimentos.
+
+\subsection*{Conclusion}
+Se proponen medidas a implementar para solucionar el problema o mejorar el funcionamiento del sistema.
+
+\subsection*{Principios del diseño de experimentos}
+Si no se siguen estos principios, la validez de los datos que se obtengan de los experimentos sera perjudicada.
+
+\subsubsection*{Aleatorizacion}
+Las diferentes corridas de experimentos y la seleccion de material para las pruebas deben hacerse de forma 
+aleatoria con el fin de que los errores causados por factores ambientales o temporales se distribuyan de forma 
+aleatoria en todas las pruebas y se aumente la independencia de las pruebas.
+
+\subsubsection*{Repeticion}
+Llevar a cabo cada experimento mas de una vez, es decir, ejecutar varias veces cada tratamiento de forma aleatoria 
+contribuye a la distribucion de los errores de forma aleatoria y ademas permite medir y distinguir entre la variabilidad 
+debida a los efectos de factores y la variabilidad de los errores aleatorios o experimentales.
+
+\subsection*{Diseño unifactorial}
+Se estudia el efecto de un unico factor y se considera que este y el error aleatorio son las unicas dos fuentes de
+variabilidad.
+Se consideran ademas 4 hipotesis:
+\begin{itemize}
+    \item La suma de todos los efectos del factor es 0
+    \item La suma de todos los errores es 0
+    \item Los errores son independientes y uniformemente distribuidos
+    \item Los errores tienen una distribucion normal
+\end{itemize}
+Como primer analisis puede hacerse una asignacion de la variacion que consiste en calcular que porcentaje de 
+la variacion total ocupa la variacion del factor, teniendo en cuenta que el resto del porcentaje lo ocupa 
+la variacion del error.
+
+\subsection*{ANOVA}
+Es el analisis de varianza, es un analisis estadistico que permite determinar si el efecto de un factor es 
+relevante o no comparandolo con el efecto del error aleatorio.
+La hipotesis nula es que las medias de cada nivel del factor son iguales, la hipotesis alternativa es que 
+al menos un par de medias son diferentes, en este ultimo caso, se considera que el factor tiene un efecto con 
+importancia estadistica sobre la variable de respuesta. Esto significa que los cambios en el nivel del factor 
+generan cambios significativos en la respuesta.
+El metodo emplea sumas de cuadrados de los efectos (SSA, SSE), sus cuadrados medios (MSA, MSE) y se utiliza una 
+variable de Fisher para relacionar las varianzas. Esta variable es la que se utiliza para determinar si se 
+cumple la hipotesis nula, comparandola con una tabla.
+
+\subsection*{Intervalos de confianza}
+Se utilizan intervalos de confianza como indicadores del grado de variabilidad de los efectos.
+Se calculan con el cuadrado medio del error y la distribucion de Student. Si un intervalo 
+contiene al valor cero, es probable que el efecto del nivel no sea relevante.
+
+\subsection*{Diseño factorial completo}
+Se emplea para conocer el efecto de mas de un factor y las interacciones entre ellos.
+Tiene las mismas hipotesis que el diseño unifactorial y ademas:
+\begin{itemize}
+    \item La suma de los efectos de la interaccion de A y B en los niveles de A es 0
+    \item La suma de los efectos de la interaccion de A y B en los niveles de B es 0
+\end{itemize}
+
+\subsection*{Diseño factorial completo}
 
 \end{document}
 
