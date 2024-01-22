@@ -148,14 +148,31 @@ Para seleccionar una candidata, se utiliza el histograma de frecuencias de los d
 inspecciona para determinar a que distribucion se parece, ademas se deben considerar las propiedades 
 del proceso.
 
-Los parametros se calculan en base a los datos del histograma.
+Los parametros se calculan en base a los datos del histograma. % Agregar mas informacion de chi-cuadrado, K-S y A-D p 355
+% Buscar paginas de wikipedia de esto pq no hay un pingo en los libros
 La \textbf{bondad de ajuste} puede probarse graficamente, por ejemplo construyendo un histograma basado en la
 distribucion propuesta y comparandolo al original o haciendo una comparacion quantil-quantil entre ambos
 conjuntos de datos.
 
 Por otro lado, puede hacerse la prueba por metodos analiticos como chi-cuadrado, Kolmogorov-Smirnov o Anderson-Darling.
+\subsubsection*{Chi-cuadrado}
+Formaliza la idea de comparar el histograma de la muestra con el de la distribucion a la que se quiere ajustar.
+Requiere una muestra de gran tamaño y agrupar los valores en clases de equivalencia, estas clases se crean de forma 
+arbitraria y depende cuales se designen, el resultado de la prueba puede variar. Ademas, es necesario agrupar clases
+con muy poca frecuencia hasta llegar a un minimo.
 
-\section{Generacion de numeros aleatorios} % Resumir hasta 287
+\subsubsection*{Kolmogorov-Smirnov}
+Formaliza la idea de hacer un analisis grafico quantil-quantil.
+Es util en casos de muestras reducidas y de no disponerse de parametros calculados sobre la muestra.
+
+\subsubsection*{Anderson-Darling}
+Similar a K-S ya que se comparan las frecuencias acumuladas de la muestra y de la distribucion para llevar a cabo
+la prueba. Por otro lado, este test utiliza otro metodo para medir las diferencias entre ambas, diferente a tomar
+la maxima diferencia. Esto permite hacer a este test mas sensible y preciso, principalmente en las colas de las 
+distribuciones.
+
+
+\section{Generacion de numeros aleatorios} 
 Los numeros aleatorios deben ser uniformes e independientes. Deben ser muestras independientes una
 de la otra de una distribucion uniforme entre 0 y 1.
 Estas dos caracteristicas se pueden probar, la uniformidad mediante pruebas de bondad que comparen una muestra o
@@ -172,8 +189,71 @@ Los metodos de generacion de numeros aleatorios deben poseer las siguientes cara
     \item Debe aproximar las caracteristicas de los numeros aleatorios, incluyendo parametros como la varianza
 \end{itemize}
 
-\subsubsection*{Congruencia lineal}
+\subsubsection*{Congruencia lineal} % agregar los otros metodos
 Permite determinar el ciclo maximo y la velocidad de generacion al elegir los valores de a, c y m.
+
+\section{Generacion de variables aleatorias}
+Se utilizan numeros aleatorios para muestrear valores que pertenezcan a una determinada distribucion de
+probabilidad de interes.
+
+\subsection*{Metodo de la transformada inversa}
+Consiste en hallar la funcion de probabilidad acumulada de la distribucion $F(X)$, luego igualarla a $R$,
+un numero aleatorio que va a ser generado y luego despejar $X$ para obtener una funcion inversa $F^{-1}(R) = X$.
+Con esta funcion se pueden obtener valores de la variable X a partir de los numeros R que sigan la distribucion 
+empleada. 
+Este metodo se utiliza cuando es posible y sencillo despejar la funcion inversa. Tambien se emplea para distribuciones
+empiricas.
+En el caso de distribuciones discretas se emplean los valores de la tabla de frecuencias acumuladas para determinar 
+los extremos del subintervalo de $[0,1]$ que corresponde a cada valor discreto. Luego, dependiendo de a que subintervalo
+pertenezca cada numero aleatorio, se calcula el valor de la variable.
+
+\subsection*{Metodo del rechazo}
+Para cada valor de variable aleatoria que se requiera, se genera un numero aleatorio. Se compara este numero a una condicion
+y si la satisface, el valor se acepta como valor de la variable, por otro lado, si no cumple la condicion, se lo rechaza y
+se genera un nuevo numero aleatorio para comenzar el proceso nuevamente. Dependiendo de la distribucion se empleara una 
+condicion diferente o se empleara mas de un numero aleatorio por iteracion. Ademas, el numero aleatorio debe ser utilizado 
+en alguna funcion que de como resultado la variable.
+Este metodo permite generar variables de una distribucion de Poisson.
+
+\subsection*{Metodos de propiedades especiales (Distribucion Normal)}
+Existen metodos que no son generales sino que son caracteristicos de cada distribucion y se emplean para obtener valores 
+de variables con distribuciones mas complejas o que son dificiles de obtener con los demas metodos.
+Este es el caso de la distribucion normal. % Agregar mas sobre este metodo particular (no esta en Banks) Buscar en las diapositivas o algun apunte/resumen
+
+\section*{Diseño de experimentos}
+Se plantean interrogantes y se diseñan experimentos para determinar que pruebas es necesario hacer y como llevarlas a cabo para responder
+a los interrogantes.
+
+\subsection*{Experimento}
+Es un cambio que se hace sobre las condiciones o las entradas de un sistema o proceso con el fin de medir el efecto del cambio sobre 
+sus propiedades o variables de respuesta.
+
+\subsection*{Unidad experimental}
+Es la pieza o muestra sobre la que se realiza el experimento, debe ser representativa del sistema o proceso.
+
+\subsection*{Variable de respuesta}
+Son propiedades o caracteristicas que permiten conocer los efectos de los experimentos a partir de su medicion.
+
+\subsection*{Factor}
+Es una variable o caracteristica que se puede controlar o cambiar y por lo tanto son las variables que se emplean 
+en los experimentos. Para elegir que factores emplear se debe recurrir al conocimiento que se tenga sobre el 
+sistema en estudio, es decir, los factores que se estime que puedan influir en las respuestas.
+
+\subsection*{Nivel}
+Es un valor determinado que se asigna a un factor dentro de un experimento. Si el experimento involucra varios factores,
+a una combinacion de niveles se le llama \textbf{tratamiento}.
+
+\subsection*{Error aleatorio}
+Es la parte de la variabilidad que se observa en las variables de respuesta que no se debe a los cambios de los 
+experimentos sino que son errores naturales del proceso en estudio, son aleatorios. Pueden provenir de factores
+que no fueron tenidos en cuenta por considerarse de poca importancia.
+
+\subsection*{Error experimental}
+Es el error que comete el experimentador al llevar a cabo los experimentos, si es importante el error no se podra
+determinar el efecto de los factores en el sistema.
+
+\subsection*{Planeacion}
+
 \end{document}
 
 
