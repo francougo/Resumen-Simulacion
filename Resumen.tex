@@ -319,6 +319,8 @@ cumple la hipotesis nula, comparandola con una tabla.
 Se utilizan intervalos de confianza como indicadores del grado de variabilidad de los efectos.
 Se calculan con el cuadrado medio del error y la distribucion de Student. Si un intervalo 
 contiene al valor cero, es probable que el efecto del nivel no sea relevante.
+Tanto el ANOVA como los intervalos de confianza pueden ser calculados solo en diseños con
+repeticiones ya que si no se hacen repeticiones no puede calcularse el error.
 
 \subsection*{Diseño factorial completo}
 Se emplea para conocer el efecto de mas de un factor y las interacciones entre ellos.
@@ -328,7 +330,24 @@ Tiene las mismas hipotesis que el diseño unifactorial y ademas:
     \item La suma de los efectos de la interaccion de A y B en los niveles de B es 0
 \end{itemize}
 
-\subsection*{Diseño factorial completo}
+\subsection*{Diseño factorial $2^k$}
+Consiste en un diseño con varios factores pero con solo dos niveles por factor. 
+Se suele utilizar al comienzo e los experimentos o en situaciones donde realizar un 
+diseño factorial completo puede ser muy costoso o complejo. Puede utilizarse para descartar 
+factores que no tengan efectos sobre la variable de respuesta y luego considerar mas niveles 
+en un diseño factorial completo.
+
+\subsection*{Diseño factorial fraccionario $2^{k-p}$}
+Se utiliza para estudiar el efecto en situaciones donde la cantidad de factores es demasiado
+grande. 'P' es la candidad o fraccion de combinaciones de factores que se dejan sin estudiar 
+en el diseño.
+Las combinaciones que no se estudian son las que estan superpuestas o confundidas con otras 
+combinaciones (sus efectos).
+Utilizar este diseño implica dividir las $2^k$ combinaciones en $2^p$ particiones y ejecutar 
+las corridas de simulacion en una de ellas para relacionar los resultados con las demas combinaciones.
+La desventaja de crear muchas particiones es que se pierde mas informacion, por lo tanto debe 
+tomarse una decision considerando el costo del diseño, la cantidad de factores y cuanta informacion 
+es aceptable perder para simplificar el diseño.
 
 \end{document}
 
