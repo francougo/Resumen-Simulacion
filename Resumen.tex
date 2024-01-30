@@ -8,12 +8,21 @@
 \section{Modelos de simulacion de sistemas discretos}
 \subsection{Simulacion}
 Es una imitacion simplificada de un sistema que tiene por objetivo entender
-y mejorar el sistema. Entre las simulaciones pueden distinguirse
+y mejorar el sistema. 
+Para estudiar un sistema real se construye un modelo de simulacion, este modelo 
+se compone de un conjunto de suposiciones y simplificaciones del funcionamiento 
+del sistema.
+Entre las simulaciones pueden distinguirse
 las estaticas, que son invariantes en el tiempo y las dinamicas, que imitan
 al sistema y su comportamiento segun el avance del tiempo.
 
 \subsection{Sistema} %TODO completar definicion
-Es un conjunto de partes organizadas para alcanzar un proposito.
+Es un conjunto de partes relacionadas entre si que operan de forma 
+organizada para alcanzar un proposito.
+Los sistemas se ven afectados por cambios que ocurren fuera de ellos,
+en el entorno del sistema. Dependiendo del proposito del modelo que 
+se este diseñando, debe elegirse una frontera que separe al sistema de
+su entorno.
 Pueden distinguirse las siguientes clases de sistema:
 \begin{itemize}
     \item Naturales: Tienen origen en la naturaleza. Ejemplo: Atomo.
@@ -24,6 +33,25 @@ Pueden distinguirse las siguientes clases de sistema:
         humana pero no fue diseñado. Ejemplo: familia, ciudad.
 \end{itemize}
 
+\subsection*{Componentes de un sistema}
+\begin{itemize}
+    \item Entidades: objetos que son de interes para el modelo
+    \item Atributos: propiedades de las entidades
+    \item Actividad: representacion de un periodo de tiempo en el que ocurre un
+    proceso relevante al sistema
+    \item Estado: conjunto de variables necesarias para describir al Sistema
+    en cualquier momento
+    \item Evento: un suceso instantaneo que puede cambiar el estado del sistema
+\end{itemize}
+
+\subsection*{Tipos de sistema}
+\begin{itemize}
+    \item Sistemas discretos: son aquellos en los que el estado cambia solo 
+    en determinados puntos discretos en el tiempo, solo en determinados eventos.
+    \item Sistemas continuos: su estado varia de forma continua, si se toma un 
+    intervalo aleatoriamente pequeño de tiempo puede observarse un cambio en el 
+    estado.
+\end{itemize}
 \subsection{Proposito de una simulacion}
 El proposito de hacer una simulacion es obtener un mejor entendimiento e
 identificar posibles mejoras para un sistema, esta informacion luego puede
@@ -37,7 +65,7 @@ categorias sino que incluyen partes de ambas. Se denomina de forma general
 a estos sistemas como sistemas operacionales. Un sistema operacional es
 una configuracion de recursos combinados para proveer un bien o servicio.
 
-Estos sistemas pueden estar afectados por la \textbf{variaabilidad}. Esta 
+Estos sistemas pueden estar afectados por la \textbf{variabilidad}. Esta 
 variabilidad puede ser predecible, por ejemplo el cambio de la cantidad
 de operadores en un callcenter como respuesta a diferentes volumenes de 
 llamadas durante un dia o impredecible, como la tasa de ingresos a una
@@ -64,6 +92,20 @@ al llevar a cabo acciones.
 Es por estas caracteristicas de los sistemas operacionales que puede ser
 util emplear simulaciones, ya que estas tienen la capacidad de representar
 la variabilidad, interconexion y complejidad.
+
+\subsection*{Requerimientos de la simulacion}
+\begin{itemize}
+    \item Validez: Que el modelo represente de manera adecuada al sistema real,
+    condiderando el objetivo propuesto
+    \item Credibilidad: Que los clientes confien en el sistema, confien en su 
+    validez y esten dispuestos a utilizarlo para la toma de decisiones
+    \item Utilidad: Que el modelo sea facil de usar y rapido para ejecutar los 
+    escenarios
+    \item Viabilidad: Que el modelo se pueda construir de acuerdo a las restricciones
+    de tiempo, dinero, personal disponible, etc.
+    \item Simplicidad: El modelo debe ser lo mas simple posible pero cumplir todos los 
+    objetivos propuestos
+\end{itemize}
 
 
 %TODO: agregar notas de clase
@@ -171,6 +213,8 @@ la prueba. Por otro lado, este test utiliza otro metodo para medir las diferenci
 la maxima diferencia. Esto permite hacer a este test mas sensible y preciso, principalmente en las colas de las 
 distribuciones.
 
+\section*{Montecarlo}
+Una simulacion de montecarlo es un modelo estatico que representa el estado de un sistema en un determinado momento.
 
 \section{Generacion de numeros aleatorios} 
 Los numeros aleatorios deben ser uniformes e independientes. Deben ser muestras independientes una
@@ -339,8 +383,9 @@ en un diseño factorial completo.
 
 \subsection*{Diseño factorial fraccionario $2^{k-p}$}
 Se utiliza para estudiar el efecto en situaciones donde la cantidad de factores es demasiado
-grande. 'P' es la candidad o fraccion de combinaciones de factores que se dejan sin estudiar 
+grande. 'P' es la candidad o fraccion de combinaciones de factores (o tratamientos) que se dejan sin estudiar 
 en el diseño.
+Se suele emplear en las primeras etapas de investigacion.
 Las combinaciones que no se estudian son las que estan superpuestas o confundidas con otras 
 combinaciones (sus efectos).
 Utilizar este diseño implica dividir las $2^k$ combinaciones en $2^p$ particiones y ejecutar 
@@ -348,6 +393,204 @@ las corridas de simulacion en una de ellas para relacionar los resultados con la
 La desventaja de crear muchas particiones es que se pierde mas informacion, por lo tanto debe 
 tomarse una decision considerando el costo del diseño, la cantidad de factores y cuanta informacion 
 es aceptable perder para simplificar el diseño.
+Este diseño se basa en la jerarquizacion de factores: son mas importantes los efectos de factores 
+individuales o principales que los efectos de las interacciones, que a su vez son mas relevantes que
+las interacciones de mayores cantidades de factores.
+Es conveniente utilizarlo cuando la cantidad de factores potencialmente irrelevantes, interacciones de 
+varios factores, supere a la cantidad de factores principales y las interacciones dobles. Esto se da
+para experimentos $2^5$ o mayores.
+Ademas de la perdida de informacion, este diseño produce efectos alias, de los efectos que se pueden 
+estimar con las corridas de la particion seleccionada, cada uno de ellos tendra al menos un alias. 
+Dos efectos que son alias representan el mismo efecto.
+
+\section*{Pasos de un proyecto de simulacion}
+\subsection*{Formulacion del problema}
+Cada estudio comienza con la formulacion de un problema que debe ser acordada
+y comprendida tanto por quien desarrolla la simulacion como por quienes van 
+a utilizar los resultados par tomar decisiones.
+
+\subsection*{Fijar objetivos y plan de proyecto}
+En base al problema definido en el paso anterior se determina cuales son las 
+preguntas a responder y, si se decide que se va a desarrollar una simulacion,
+se planifica el estudio (tiempo necesario, personal, costo, etc).
+
+\subsection*{Desarrollo del modelo conceptual}
+Debe tenerse en cuenta los objetivos planteados. Se hace una abstraccion del 
+sistema real para obtener un modelo simple y luego se le agrega la complejidad 
+necesaria para que sea util para alcanzar los objetivos.
+Incluye entradas, salidas, objetivos, los componentes del sistema, las suposiciones
+y simplificaciones. En esta etapa se definen que partes del sistema incluir y cuales 
+no y tambien con que nivel de detalle se van a incluir en el modelo.
+Las suposiciones se relacionan al conocimiento que se tiene del sistema real y se 
+emplean para completar la informacion que se tiene. Las simplificaciones se 
+emplean al abtraer el sistema a un modelo y es informacion que se decide no incluir
+porque se considera que no es lo suficientemente relevante para los objetivos de la simulacion.
+Ademas, el modelo conceptual tiene asociados los siguientes artefactos:
+
+\begin{itemize}
+    \item Descripcion del problema: Es una descripcion del problema y de todos los elementos del sistema real 
+    que estan relacionados a el. Construir esta descripcion implica desarrollar un entendimiento del problema.
+    Para lograr esto es importante enunciar el problema, crear diagramas que provean una vista estatica como 
+    dinamica del sistema en estudio y complementar este entendimiento con supocisiones.
+    \item Modelo de diseño: Es el diseño de los elementos y la logica que se utilizara para construir 
+    el modelo computacional.
+    \item Modelo computacional: Es la representacion en software del modelo conceptual.
+\end{itemize}
+
+\subsubsection*{Partes del modelo conceptual}
+\begin{itemize}
+    \item Objetivo: proposito del modelo de simulacion
+    \item Salidas: resultados esperados de las corridas que deben permitir evaluar el objetivos
+    \item Entradas: es un elemento de los definidos en la estructura o reglas de negocio que permiten
+    generar una mejora o proveer conocimiento sobre el sistema real
+    \item Factor experimental: es una entrada que define un elemento que puede ser modificado para afectar 
+    al sistema
+    \item Parametro: entrada que define un elemento fijo que configura a la simulacion para que logre imitar 
+    al sistema real, no puede cambiar en los distintos experimentos
+\end{itemize}
+
+
+
+
+\subsection*{Recoleccion de datos}
+Los datos necesarios para llevar a cabo la traduccion, considerando el modelo conceptual diseñado.
+
+\subsection*{Traduccion al modelo computacional}
+Se emplean el modelo conceptual y los datos recolectados para construir un modelo computacional.
+
+\subsection*{Verificacion}
+Si el modelo conceptual ha sido implementado correctamente en el modelo computacional y este ha sido
+probado, es decir, funciona correctamente, se procede con la validacion. Si no pasa la verificacion, 
+se regresa al paso anterior o se corrigen los errores en el modelo traducido.
+
+\subsection*{Validacion}
+Si el modelo propuesto representa de forma adecuada al sistema real se procede al diseño de experimentos,
+mientras que si falla la validacion se debe regresar al paso de definir el modelo conceptual y recopilar 
+nuevos datos.
+
+\subsection*{Diseño de experimentos}
+Se plantean los diseños experimentales a llevar a cabo, las distintas corridas que se van a hacer 
+con el modelo computacional.
+
+\subsection*{Corridas de produccion}
+Son las corridas y su analisis que permiten estimar las 'medidas de performance' o las variables de 
+respuesta del sistema real (?) para las configuraciones de parametros simuladas.
+Si se considera que son necesarias mas corridas se pueden agregar a los diseños ya planteados o volver 
+a la etapa anterior para agregar otro diseño.
+
+\subsection*{Documentacion y reporte}
+Una vez que se han terminado las corridas propuestas en el diseño de experimentos y se considera que no
+es necesario realizar mas, se lleva a cabo la documentacion del proyecto de simulacion y un reporte.
+
+\section*{Analisis de salidas}
+Una salida de simulacion es una estimacion del desempeño del sistema y varian entre cada corrida de 
+simulacion. Por lo tanto es necesario hacer un analisis de las salidas, para poder conocer el 
+comportamiento del sistema real y para poder asi comparar distintos escenarios.
+Si se llevan a cabo varias corridas de simulacion y se miden los valores para una variable de 
+respuesta, se obtendra un estimador. La precision de este estimador puede medirse por el error 
+estandar de la respuesta y por un intervalo de confianza.
+
+\subsection*{Corridas}
+Una corrida de simulacion es una ejecucion de un experimento predefinido que finaliza por tiempo o numero
+de entidades simuladas. 
+Para poder tener en cuenta los errores aleatorios es necesario que cada corrida tenga al menos dos 
+repeticiones. Las repeticiones se hacen con el mismo modelo, parametros y criterios de fin de simulacion pero
+con una semilla de generador de numeros aleatorios diferente.
+
+\subsection*{Resultados}
+Cada repeticion que se realiza produce un resultado. Estos resultados pueden ser discretos o continuos (
+en vez de ser un conjunto de resultados es una funcion de resultado $Y(t)$).
+Cada resultado tiene un punto de estimacion y un intervalo que representa el error en la estimacion del punto.
+El punto de estimacion es la media de los resultados (valor medio para resultados continuos).
+Luego, si se calcula la varianza de la muestra (el conjunto de resultados para una corrida), se puede determinar 
+el intervalo de confianza. En el intervalo de confianza se asume que el resultado tiene una distribucion normal
+
+\subsection*{Sistemas con final definido}
+En un determinado momento no se programan mas eventos nuevos, por lo que al finalizar el procesamiento 
+de los eventos ya programados, el periodo termina. Esto implica que hay un ultimo evento que marca el fin del
+periodo. * Aca lo escribi como si fuese una simulacion, en realidad la definicion es para sistemas reales pero se 
+entiende y aplica igual.
+El estado del sistema al finalizar un periodo no debe alterar el siguiente.
+Una alternativa son sistemas con periodos iguales, donde el periodo termina por tiempo, sin importar los eventos 
+ya programados.
+
+\subsection*{Sistemas con final no definido}
+En estos sistemas los eventos nunca dejan de ocurrir por lo que si se quisiera dividir en periodos a las observaciones,
+los periodos anteriores tendrian efecto sobre los posteriores.
+
+\subsection*{Tipo de simulacion}
+Al modelar el sistema, independientemente de su tipo, se creara un modelo que ejecute procesos con final definido.
+Por otro lado, se las distingue en simulaciones terminantes y no terminantes respectivamente.
+Las primeras finalizan al llegar a una condicion de vacio, al finalizar el periodo de investigacion o al 
+emplear la totalidad de una traza, mientras que las no terminantes deben ser detenidas por un usuario.
+Tambien se diferencian simulaciones en estacionarias o transientes. Las primeras son las que no experimentan 
+grandes cambios en el estado del sistema o en las que las distribuciones de probabilidad de sus variables de 
+estado no varian con el tiempo, aunque si puedan variar en cierto rango las salidas. Por lo general los sistemas
+pasan por un estado inicial transiente, la puesta en marcha, y luego se estabilizan a un estado estacionario 
+hasta finalizar sus procesos.
+
+\subsection*{Criterios de salidas}
+En el caso de estudiar el estado estacionario es interesante evaluar las salidas correspondientes a tiempos de corrida largos, 
+mientras que al analizar el periodo o sistemas transientes son mas utiles las primeras observaciones y el momento en el que se 
+alcanza el estado estacionario si lo hubiese.
+Ademas, en el analisis del estado estacionario pueden diferenciarse tipos de ciclos, cada uno con diferentes comportamientos.
+Si este es el caso, debe tenerse en cuenta a que ciclo pertenece cada salida.
+
+\subsection*{Eliminar el estado transiente}
+La simulacion debe minimizar el periodo de estado transiente para casos en los que este sea una puesta en marcha. Para esto puede 
+realizarse corridas mas largas o asignarse las variables con valores cercanos a los del estado estacionario.
+
+\section*{Verificacion y validacion}
+La verificacion y validacion deben ser tenidas en cuenta a lo largo de todo el desarrollo de la simulacion 
+ademas de llevarse a cabo al finalizar el desarrollo. 
+La verificacion consiste en comparar el modelo computacional con el modelo conceptual para determinar si 
+se ha implementado correctamente el sistema en el software de simulacion, si se han implementado correctamente las 
+hipostesis que se tomaron sobre el sistema real.
+La validacion consiste en determinar si el modelo que se ha diseñado representa correctamente al sistema 
+real, determinar si las hipotesis sobre el sistema real son razonables. Es un proceso iterativo en el que se 
+compara el comportamiento del sistema real con el modelo y 
+se buscan discrepancias para poder corregir el modelo hasta alcanzar un nivel de precision aceptable.
+
+\subsection*{Principios basicos}
+\begin{itemize}
+    \item Buen entendimiento del sistema
+    \item Clara definicion de entidades y salidas
+    \item Entendimiento de las necesidades u objetivos del clientes
+    \item Consultar expertos a lo largo de todo el proceso
+    \item Seguir el nivel de detalle propuesto
+\end{itemize}
+
+\subsection*{Verificacion}
+Todas las tecnicas de verificacion y de validacion se basan en la deteccion y correccion de errores.
+Algunas practicas de sentido comun que pueden llevarse a cabo para realizar la verificacion son:
+\begin{itemize}
+    \item Explicar el codigo a otras personas y comparar las formas de implementar el modelo
+    \item Comparar salidas con distribuciones conocidas o con datos historicos
+    \item Generar salidas de trazas: agregar a una lista cada evento que ocurre de forma ordenada 
+    y con sus variables asociadas
+    \item Hacer corridas con leves cambios en las entradas, si se observan grandes cambios en la 
+    salida para minimos cambios de entrada se puede detectar un error
+    \item Comparar salidas correspondientes a distintas configuraciones de entradas que en el sistema 
+    real deberian producir las mismas salidas
+    \item Que una persona diferente al desarrollador sea quien checkee el modelo computacional
+    \item Diseñar un diagrama de flujo y seguir los caminos logicos para cada evento posible del sistema
+    \item Verificar que las salidas del modelo computacional sean razonables para diferentes entradas
+    \item Emplear las herramientas que provee el software de simulacion como lo son el controlador de 
+    ejecucion y las interfaces graficas.
+    \item Comparar metricas que puedan hacerse con modelos analiticos con las medidas del modelo computacional. 
+    Aunque no sea posible conocer metricas analiticas o del sistema real para todos los parametros, una 
+    respuesta incorrecta de cualquier variable indica un problema en la precision del modelo y una respuesta 
+    correcta aporta confiabilidad de que tambien podra predecir correctamente las demas respuestas.
+\end{itemize}
+
+\subsection*{Validacion y calibracion}
+Algunas tecnicas:
+\begin{itemize}
+    \item Presentar datos de mediciones reales y datos obtenidos de la simulacion a expertos en el dominio del problema
+    para ver si pueden distinguirlos.
+    \item Conocer investigaciones con objetivos similares
+\end{itemize}
+
 
 \end{document}
 
