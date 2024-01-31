@@ -107,6 +107,77 @@ la variabilidad, interconexion y complejidad.
     objetivos propuestos
 \end{itemize}
 
+\section*{Simulacion basada en eventos discretos}
+El sistema se representa como entidades que fluyen de una actividad a otra.
+El estado del modelo cambia de forma instantanea en momentos separados del 
+tiempo, en estos momentos ocurre un evento, sin embargo, un evento no 
+necesariamente cambia el estado del modelo.
+Las entidades atraviesan procesos, sucesiones de eventos ordenadas que modifican
+su estado.
+
+\subsection*{Mecanismos de avance de tiempo orientado a intervalos}
+El tiempo de la simulacion avanza en intervalos regulares y para cada intervalo 
+se determina si un evento ocurrio en el. Si ocurrio un evento se lo ejecuta y 
+se actualizan los valores de los estadisticos.
+Tiene la desventaja de desperdiciar tiempo de procesamiento en cada intervalo 
+vacio. Ademas, procesa los eventos que ocurrieron en un intervalo al final de este, 
+lo que introduce errores. Esto se puede contraarrestar reduciendo el tamaño del 
+intervalo con la desventaja de aumentar el procesamiento de intervalos vacios.
+
+
+\subsection*{Mecanismos de avance de tiempo orientado a eventos}
+El tiempo de la simulacion avanza la cantidad necesaria para alcanzar el proximo
+evento programado. Requiere mantener una lista de eventos futuros que debe ser ordenada cada vez que 
+se programa un nuevo evento.
+
+\subsection*{Componentes}
+\subsubsection*{Estado del sistema}
+Coleccion de variables necesarias para describir al sistema en un punto del tiempo.
+
+\subsubsection*{Reloj de simulacion}
+Variable que mantiene el valor actual del tiempo simulado.
+
+\subsubsection*{Lista de eventos}
+Lista con el tiempo en el que ocurrira el proximo evento de cada tipo.
+
+\subsubsection*{Contadores estadisticos}
+Variables que contienen informacion sobre el funcionamiento del sistema,
+son las salidas de la simulacion.
+
+\subsubsection*{Rutina de inicializacion}
+Programa que inicializa el modelo en el tiempo inicial $t=0$.
+
+\subsubsection*{Rutina de tiempo}
+Programa que actualiza el reloj de la simulacion basandose en la lista de 
+eventos y determina el proximo tipo de evento.
+
+\subsubsection*{Rutina de evento}
+Programa que actualiza el estado del sistema cuando ocurre un evento. Para cada 
+tipo de evento existe una rutina diferente. En la etapa de construccion del 
+modelo de diseño es importante diferenciar entre eventos condicionales e 
+incondicionales ya que solo estos ultimos tendran una rutina asociada. 
+Los eventos condicionales tendran su logica modelada dentro de la rutina de 
+evento de un evento del que dependan.
+Se dice que un evento es condicional si su ocurrencia depende del estado o un 
+componente del sistema.
+Ademas, en la etapa de diseño debe considerarse que las rutinas de eventos son las 
+que van a programar otros eventos a futuro y por lo tanto van a determinar el tiempo 
+en que van a ocurrir.
+
+\subsubsection*{Libreria de rutinas}
+Libreria de programas utilizados para generar observaciones aleatorias a partir 
+de las distribuciones de probabilidad asociadas al sistema. Las rutinas son 
+empleadas por las rutinas de eventos.
+
+\subsubsection*{Generador de reportes}
+Programa que calcula las estimaciones de las medidas de performance %(?) -> cual es la definicion de medida de performance
+a partir de los contadores estadisticos.
+
+\subsubsection*{Programa principal}
+Programa que ejecuta la rutina de inicializacion y la rutina de tiempo para luego 
+transferir el control a las rutinas de evento correspondientes. Tambien tiene la 
+funcion de evaluar la condicion de terminacion y de invocar al generador de reportes.
+
 
 %TODO: agregar notas de clase
 \section*{Recopilacion y analisis de datos}
@@ -215,6 +286,16 @@ distribuciones.
 
 \section*{Montecarlo}
 Una simulacion de montecarlo es un modelo estatico que representa el estado de un sistema en un determinado momento.
+Los pasos para llevar a cabo una simulacion de montecarlo son:
+\begin{itemize}
+    \item Diseñar el modelo logico
+    \item Especificar las distribuciones de probabilidad para las variables relevantes
+    \item Incluir las dependencias entre variables
+    \item Muestrear valores para las variables aleatorias utilizando las distribuciones
+    \item Calcular el resultado del modelo segun los valores del muestreo y las dependencias
+    \item Repetir el proceso hasta tener una muestra de resultados representativa
+    \item Obtener la distribucion de probabilidad y los parametros estadisticos de la muestra de resultados
+\end{itemize}
 
 \section{Generacion de numeros aleatorios} 
 Los numeros aleatorios deben ser uniformes e independientes. Deben ser muestras independientes una
