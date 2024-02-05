@@ -16,7 +16,7 @@ Entre las simulaciones pueden distinguirse
 las estaticas, que son invariantes en el tiempo y las dinamicas, que imitan
 al sistema y su comportamiento segun el avance del tiempo.
 
-\subsection{Sistema} %TODO completar definicion
+\subsection{Sistema} 
 Es un conjunto de partes relacionadas entre si que operan de forma 
 organizada para alcanzar un proposito.
 Los sistemas se ven afectados por cambios que ocurren fuera de ellos,
@@ -48,6 +48,7 @@ Pueden distinguirse las siguientes clases de sistema:
 \begin{itemize}
     \item Sistemas discretos: son aquellos en los que el estado cambia solo 
     en determinados puntos discretos en el tiempo, solo en determinados eventos.
+    Por lo tanto el estado del sistema es constante entre estos puntos.
     \item Sistemas continuos: su estado varia de forma continua, si se toma un 
     intervalo aleatoriamente pequeño de tiempo puede observarse un cambio en el 
     estado.
@@ -106,6 +107,85 @@ la variabilidad, interconexion y complejidad.
     \item Simplicidad: El modelo debe ser lo mas simple posible pero cumplir todos los 
     objetivos propuestos
 \end{itemize}
+
+
+\section*{Pasos de un proyecto de simulacion}
+
+\subsection*{Formulacion del problema}
+Cada estudio comienza con la formulacion de un problema que debe ser acordada
+y comprendida tanto por quien desarrolla la simulacion como por quienes van 
+a utilizar los resultados par tomar decisiones.
+
+\subsection*{Fijar objetivos y plan de proyecto}
+En base al problema definido en el paso anterior se determina cuales son las 
+preguntas a responder y, si se decide que se va a desarrollar una simulacion,
+se planifica el estudio (tiempo necesario, personal, costo, etc).
+
+\subsection*{Desarrollo del modelo conceptual}
+Debe tenerse en cuenta los objetivos planteados. Se hace una abstraccion del 
+sistema real para obtener un modelo simple y luego se le agrega la complejidad 
+necesaria para que sea util para alcanzar los objetivos.
+Incluye entradas, salidas, objetivos, los componentes del sistema, las suposiciones
+y simplificaciones. En esta etapa se definen que partes del sistema incluir y cuales 
+no y tambien con que nivel de detalle se van a incluir en el modelo.
+Las suposiciones se relacionan al conocimiento que se tiene del sistema real y se 
+emplean para completar la informacion que se tiene. Las simplificaciones se 
+emplean al abtraer el sistema a un modelo y es informacion que se decide no incluir
+porque se considera que no es lo suficientemente relevante para los objetivos de la simulacion.
+Ademas, el modelo conceptual tiene asociados los siguientes artefactos:
+
+\begin{itemize}
+    \item Descripcion del problema: Es una descripcion del problema y de todos los elementos del sistema real 
+    que estan relacionados a el. Construir esta descripcion implica desarrollar un entendimiento del problema.
+    Para lograr esto es importante enunciar el problema, crear diagramas que provean una vista estatica como 
+    dinamica del sistema en estudio y complementar este entendimiento con supocisiones.
+    \item Modelo de diseño: Es el diseño de los elementos y la logica que se utilizara para construir 
+    el modelo computacional.
+    \item Modelo computacional: Es la representacion en software del modelo conceptual.
+\end{itemize}
+
+\subsubsection*{Partes del modelo conceptual}
+\begin{itemize}
+    \item Objetivo: proposito del modelo de simulacion
+    \item Salidas: resultados esperados de las corridas que deben permitir evaluar el objetivos
+    \item Entradas: es un elemento de los definidos en la estructura o reglas de negocio que permiten
+    generar una mejora o proveer conocimiento sobre el sistema real
+    \item Factor experimental: es una entrada que define un elemento que puede ser modificado para afectar 
+    al sistema
+    \item Parametro: entrada que define un elemento fijo que configura a la simulacion para que logre imitar 
+    al sistema real, no puede cambiar en los distintos experimentos
+\end{itemize}
+
+\subsection*{Recoleccion de datos}
+Los datos necesarios para llevar a cabo la traduccion, considerando el modelo conceptual diseñado.
+
+\subsection*{Traduccion al modelo computacional}
+Se emplean el modelo conceptual y los datos recolectados para construir un modelo computacional.
+
+\subsection*{Verificacion}
+Si el modelo conceptual ha sido implementado correctamente en el modelo computacional y este ha sido
+probado, es decir, funciona correctamente, se procede con la validacion. Si no pasa la verificacion, 
+se regresa al paso anterior o se corrigen los errores en el modelo traducido.
+
+\subsection*{Validacion}
+Si el modelo propuesto representa de forma adecuada al sistema real se procede al diseño de experimentos,
+mientras que si falla la validacion se debe regresar al paso de definir el modelo conceptual y recopilar 
+nuevos datos.
+
+\subsection*{Diseño de experimentos}
+Se plantean los diseños experimentales a llevar a cabo, las distintas corridas que se van a hacer 
+con el modelo computacional.
+
+\subsection*{Corridas de produccion}
+Son las corridas y su analisis que permiten estimar las 'medidas de performance' o las variables de 
+respuesta del sistema real (?) para las configuraciones de parametros simuladas.
+Si se considera que son necesarias mas corridas se pueden agregar a los diseños ya planteados o volver 
+a la etapa anterior para agregar otro diseño.
+
+\subsection*{Documentacion y reporte}
+Una vez que se han terminado las corridas propuestas en el diseño de experimentos y se considera que no
+es necesario realizar mas, se lleva a cabo la documentacion del proyecto de simulacion y un reporte.
+
 
 \section*{Simulacion basada en eventos discretos}
 El sistema se representa como entidades que fluyen de una actividad a otra.
@@ -179,7 +259,6 @@ transferir el control a las rutinas de evento correspondientes. Tambien tiene la
 funcion de evaluar la condicion de terminacion y de invocar al generador de reportes.
 
 
-%TODO: agregar notas de clase
 \section*{Recopilacion y analisis de datos}
 Se pueden distinguir tres tipos de requerimientos de datos. El primer tipo son 
 los datos preliminares o de contexto, estos se emplean para desarrollar un 
@@ -203,7 +282,7 @@ La categoria B incluye los datos que no se conocen pero pueden recopilarse.
 
 Por ultimo en la categoria C se encuentran los datos que no estan disponibles 
 para su recopilacion, que no pueden obtenerse.
-Para esta categoria de datos puede trabajarse:
+Para emplear datos de esta categoria existen algunas opciones:
 \subsubsection*{Estimar los datos}
 \begin{itemize}
     \item Utilizando sistemas similares
@@ -245,7 +324,7 @@ unidad de tiempo ya que en la simulacion se desea recrear cada evento.
 
 \subsubsection*{Distribuciones estadisticas}
 Son distribuciones definidas por funciones matematicas. Pueden ser discretas o continuas.
-Si se emplean estas distribuciones pueden llevarse a cabo analisis de sensibilidad 
+Si se emplean estas distribuciones pueden llevarse a cabo un analisis de sensibilidad 
 facilmente. Tienen la desventaja de poseer colas muy largas, es decir de poder generar
 valores extremos muy grandes ocasionalmente y en algunos casos valores negativos.
 No son transparentes para los clientes y no ayudan a generar confiabilidad en el modelo.
@@ -261,11 +340,16 @@ Para seleccionar una candidata, se utiliza el histograma de frecuencias de los d
 inspecciona para determinar a que distribucion se parece, ademas se deben considerar las propiedades 
 del proceso.
 
-Los parametros se calculan en base a los datos del histograma. % Agregar mas informacion de chi-cuadrado, K-S y A-D p 355
-% Buscar paginas de wikipedia de esto pq no hay un pingo en los libros
+Los parametros se calculan en base a los datos del histograma.
 La \textbf{bondad de ajuste} puede probarse graficamente, por ejemplo construyendo un histograma basado en la
 distribucion propuesta y comparandolo al original o haciendo una comparacion quantil-quantil entre ambos
 conjuntos de datos.
+
+\subsection*{Q-Q, cuantil cuantil}
+Este metodo grafico es mas flexible que los analiticos ya que permite comparar pares de muestras muy diferentes, no es necesario que 
+los tamaños sean iguales y se pueden testear muchos aspectos de las distribuciones al mismo tiempo por observar el grafico.
+Es por esto que este metodo es mas util para determinar la naturaleza de las diferencias entre las distribuciones
+que los metodos analiticos o estadisticos.
 
 Por otro lado, puede hacerse la prueba por metodos analiticos como chi-cuadrado, Kolmogorov-Smirnov o Anderson-Darling.
 \subsubsection*{Chi-cuadrado}
@@ -273,16 +357,24 @@ Formaliza la idea de comparar el histograma de la muestra con el de la distribuc
 Requiere una muestra de gran tamaño y agrupar los valores en clases de equivalencia, estas clases se crean de forma 
 arbitraria y depende cuales se designen, el resultado de la prueba puede variar. Ademas, es necesario agrupar clases
 con muy poca frecuencia hasta llegar a un minimo.
+Esta prueba es mas eficaz para probar distribuciones discretas, en el caso de distribuciones continuas sirve de 
+aproximacion.
 
 \subsubsection*{Kolmogorov-Smirnov}
 Formaliza la idea de hacer un analisis grafico quantil-quantil.
 Es util en casos de muestras reducidas y de no disponerse de parametros calculados sobre la muestra.
+Tiene la ventaja de ser un test no parametrico, lo que significa que no es necesario calcular ningun 
+parametro estadistico de la muestra.
+
 
 \subsubsection*{Anderson-Darling}
 Similar a K-S ya que se comparan las frecuencias acumuladas de la muestra y de la distribucion para llevar a cabo
-la prueba. Por otro lado, este test utiliza otro metodo para medir las diferencias entre ambas, diferente a tomar
+la prueba. Esta prueba ademas considera la dispersion de los datos de la muestra. Por otro lado, este test utiliza 
+otro metodo para medir las diferencias entre ambas, diferente a tomar
 la maxima diferencia. Esto permite hacer a este test mas sensible y preciso, principalmente en las colas de las 
 distribuciones.
+Es uno de los metodos mas utiles para hacer pruebas de ajuste con distribucion normal, es mas preciso que K-S, 
+pero requiere estimar parametros de la distribucion para poder hacer el test.
 
 \section*{Montecarlo}
 Una simulacion de montecarlo es un modelo estatico que representa el estado de un sistema en un determinado momento.
@@ -314,7 +406,12 @@ Los metodos de generacion de numeros aleatorios deben poseer las siguientes cara
     \item Debe aproximar las caracteristicas de los numeros aleatorios, incluyendo parametros como la varianza
 \end{itemize}
 
-\subsubsection*{Congruencia lineal} % agregar los otros metodos
+\subsection*{Cuadrados medios}
+Consiste en emplear los digitos centrales de cada numero, se obtiene el siguiente numero elevando al cuadrado
+el anterior. El ciclo de este metodo y las caracteristicas de los numeros generados dependen de la eleccion de 
+la semilla.
+
+\subsubsection*{Congruencia lineal} 
 Permite determinar el ciclo maximo y la velocidad de generacion al elegir los valores de a, c y m.
 
 \section{Generacion de variables aleatorias}
@@ -343,7 +440,11 @@ Este metodo permite generar variables de una distribucion de Poisson.
 \subsection*{Metodos de propiedades especiales (Distribucion Normal)}
 Existen metodos que no son generales sino que son caracteristicos de cada distribucion y se emplean para obtener valores 
 de variables con distribuciones mas complejas o que son dificiles de obtener con los demas metodos.
-Este es el caso de la distribucion normal. % Agregar mas sobre este metodo particular (no esta en Banks) Buscar en las diapositivas o algun apunte/resumen
+Este es el caso de la distribucion normal. Para el caso de la distribucion normal, puede aproximarse mediante la suma
+de $k$ numeros aleatorios. Con los numeros aleatorios se construye la distribucion normal estandar, considerando la media 
+y varianza de los numeros, y luego se multiplica al resultado obtenido (al muestreo que se hizo) por la varianza deseada y
+se le suma la media de la distribucion que se desea obtener. Este metodo sera mas preciso a medida que se aumenta la 
+cantidad de numeros empleados pero esto tambien aumentara el costo de generar las variables.
 
 \section*{Diseño de experimentos}
 Se plantean interrogantes y se diseñan experimentos para determinar que pruebas es necesario hacer y como llevarlas a cabo para responder
@@ -483,85 +584,6 @@ para experimentos $2^5$ o mayores.
 Ademas de la perdida de informacion, este diseño produce efectos alias, de los efectos que se pueden 
 estimar con las corridas de la particion seleccionada, cada uno de ellos tendra al menos un alias. 
 Dos efectos que son alias representan el mismo efecto.
-
-\section*{Pasos de un proyecto de simulacion}
-\subsection*{Formulacion del problema}
-Cada estudio comienza con la formulacion de un problema que debe ser acordada
-y comprendida tanto por quien desarrolla la simulacion como por quienes van 
-a utilizar los resultados par tomar decisiones.
-
-\subsection*{Fijar objetivos y plan de proyecto}
-En base al problema definido en el paso anterior se determina cuales son las 
-preguntas a responder y, si se decide que se va a desarrollar una simulacion,
-se planifica el estudio (tiempo necesario, personal, costo, etc).
-
-\subsection*{Desarrollo del modelo conceptual}
-Debe tenerse en cuenta los objetivos planteados. Se hace una abstraccion del 
-sistema real para obtener un modelo simple y luego se le agrega la complejidad 
-necesaria para que sea util para alcanzar los objetivos.
-Incluye entradas, salidas, objetivos, los componentes del sistema, las suposiciones
-y simplificaciones. En esta etapa se definen que partes del sistema incluir y cuales 
-no y tambien con que nivel de detalle se van a incluir en el modelo.
-Las suposiciones se relacionan al conocimiento que se tiene del sistema real y se 
-emplean para completar la informacion que se tiene. Las simplificaciones se 
-emplean al abtraer el sistema a un modelo y es informacion que se decide no incluir
-porque se considera que no es lo suficientemente relevante para los objetivos de la simulacion.
-Ademas, el modelo conceptual tiene asociados los siguientes artefactos:
-
-\begin{itemize}
-    \item Descripcion del problema: Es una descripcion del problema y de todos los elementos del sistema real 
-    que estan relacionados a el. Construir esta descripcion implica desarrollar un entendimiento del problema.
-    Para lograr esto es importante enunciar el problema, crear diagramas que provean una vista estatica como 
-    dinamica del sistema en estudio y complementar este entendimiento con supocisiones.
-    \item Modelo de diseño: Es el diseño de los elementos y la logica que se utilizara para construir 
-    el modelo computacional.
-    \item Modelo computacional: Es la representacion en software del modelo conceptual.
-\end{itemize}
-
-\subsubsection*{Partes del modelo conceptual}
-\begin{itemize}
-    \item Objetivo: proposito del modelo de simulacion
-    \item Salidas: resultados esperados de las corridas que deben permitir evaluar el objetivos
-    \item Entradas: es un elemento de los definidos en la estructura o reglas de negocio que permiten
-    generar una mejora o proveer conocimiento sobre el sistema real
-    \item Factor experimental: es una entrada que define un elemento que puede ser modificado para afectar 
-    al sistema
-    \item Parametro: entrada que define un elemento fijo que configura a la simulacion para que logre imitar 
-    al sistema real, no puede cambiar en los distintos experimentos
-\end{itemize}
-
-
-
-
-\subsection*{Recoleccion de datos}
-Los datos necesarios para llevar a cabo la traduccion, considerando el modelo conceptual diseñado.
-
-\subsection*{Traduccion al modelo computacional}
-Se emplean el modelo conceptual y los datos recolectados para construir un modelo computacional.
-
-\subsection*{Verificacion}
-Si el modelo conceptual ha sido implementado correctamente en el modelo computacional y este ha sido
-probado, es decir, funciona correctamente, se procede con la validacion. Si no pasa la verificacion, 
-se regresa al paso anterior o se corrigen los errores en el modelo traducido.
-
-\subsection*{Validacion}
-Si el modelo propuesto representa de forma adecuada al sistema real se procede al diseño de experimentos,
-mientras que si falla la validacion se debe regresar al paso de definir el modelo conceptual y recopilar 
-nuevos datos.
-
-\subsection*{Diseño de experimentos}
-Se plantean los diseños experimentales a llevar a cabo, las distintas corridas que se van a hacer 
-con el modelo computacional.
-
-\subsection*{Corridas de produccion}
-Son las corridas y su analisis que permiten estimar las 'medidas de performance' o las variables de 
-respuesta del sistema real (?) para las configuraciones de parametros simuladas.
-Si se considera que son necesarias mas corridas se pueden agregar a los diseños ya planteados o volver 
-a la etapa anterior para agregar otro diseño.
-
-\subsection*{Documentacion y reporte}
-Una vez que se han terminado las corridas propuestas en el diseño de experimentos y se considera que no
-es necesario realizar mas, se lleva a cabo la documentacion del proyecto de simulacion y un reporte.
 
 \section*{Analisis de salidas}
 Una salida de simulacion es una estimacion del desempeño del sistema y varian entre cada corrida de 
